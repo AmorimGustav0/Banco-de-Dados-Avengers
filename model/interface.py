@@ -150,7 +150,7 @@ class Interface:
                         return
                         
                     db = Database
-                    db.connect
+                    db.connect()
 
                     query = "INSERT INTO tornozeleira (nome_heroi, status) VALUES (%s,%s)"
                     values = (nome_heroi, status)
@@ -158,7 +158,7 @@ class Interface:
                     
                                             
                 except Exception as e:
-                    print('Erro ao colocar tornozeleira: {e}')
+                    print(f'Erro ao colocar tornozeleira: {e}')
                     self.aguardar_enter()
                 finally:
                     db.disconnect()
