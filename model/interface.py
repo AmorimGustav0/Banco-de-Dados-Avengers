@@ -116,9 +116,14 @@ class Interface:
                         self.aguardar_enter()
                         return
                     
-                    query = "INSERT INTO convocacao (nome_heroi, motivo,status) VALUES (%s,%s,%s)"
-                    values = (nome_heroi,motivo, status)
-                    db.execute_query(query, values)
+                    if nome_heroi in vingador.nome_heroi or nome_heroi in vingador.nome_real:
+                    
+                        query = f"Select heroi_id from heroi where (nome_heroi like '%{nome_heroi}%') or (nome_real like '%{nome_heroi}%') limit 1"
+                        heroi_id = db.select(query)
+
+                        query = "INSERT INTO convocacao (heroi_id, nome_heroi, motivo,status) VALUES (%s,%s,%s,%s)"
+                        values = (int(heroi_id[0][0]), nome_heroi,motivo, status)
+                        db.execute_query(query, values)
                     
                                             
                 except Exception as e:
@@ -149,13 +154,19 @@ class Interface:
                         self.aguardar_enter()
                         return
                         
-                    db = Database
-                    db.connect()
-
-                    query = "INSERT INTO tornozeleira (nome_heroi, status) VALUES (%s,%s)"
-                    values = (nome_heroi, status)
-                    db.execute_query(query, values)
                     
+
+                    if nome_heroi in vingador.nome_heroi or nome_heroi in vingador.nome_real:
+                        db = Database()
+                        db.connect()
+                        query = f"Select heroi_id from heroi where (nome_heroi like '%{nome_heroi}%') or (nome_real like '%{nome_heroi}%') limit 1"
+                        heroi_id = db.select(query)
+                       
+
+                        query = "INSERT INTO tornozeleira (heroi_id, nome_heroi, status) VALUES (%s,%s,%s)"
+                        values = (int(heroi_id[0][0]), nome_heroi, status)
+                        db.execute_query(query, values)
+
                                             
                 except Exception as e:
                     print(f'Erro ao colocar tornozeleira: {e}')

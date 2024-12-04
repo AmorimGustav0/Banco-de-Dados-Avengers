@@ -53,13 +53,15 @@ DROP TABLE IF EXISTS `convocacao`;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `convocacao` (
   `numero_registro` int NOT NULL AUTO_INCREMENT,
+  `heroi_id` int NOT NULL,
   `nome_heroi` varchar(45) NOT NULL,
   `motivo` varchar(250) NOT NULL,
   `data_convocacao` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `data_comparecimento` date DEFAULT NULL,
   `status` enum('Pendente','Compareceu','Ausente') NOT NULL,
-  PRIMARY KEY (`numero_registro`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+  PRIMARY KEY (`numero_registro`),
+  KEY `heroi_id_idx` (`heroi_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -68,7 +70,7 @@ CREATE TABLE `convocacao` (
 
 LOCK TABLES `convocacao` WRITE;
 /*!40000 ALTER TABLE `convocacao` DISABLE KEYS */;
-INSERT INTO `convocacao` VALUES (1,'Homem Aranha','Duende Verde','2024-12-04 10:52:56',NULL,'Pendente'),(2,'Homem de Ferro','Ultron','2024-12-04 11:06:25',NULL,'Pendente');
+INSERT INTO `convocacao` VALUES (1,0,'Homem Aranha','Duende Verde','2024-12-04 10:52:56',NULL,'Pendente'),(2,0,'Homem de Ferro','Ultron','2024-12-04 11:06:25',NULL,'Pendente'),(3,5,'Hulk','Coiso Na Cidade','2024-12-04 16:32:19',NULL,'Pendente');
 /*!40000 ALTER TABLE `convocacao` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!50003 SET @saved_cs_client      = @@character_set_client */ ;
@@ -164,8 +166,8 @@ CREATE TABLE `tornozeleira` (
   `data_desativacao` date DEFAULT NULL,
   PRIMARY KEY (`id_tornozeleira`),
   KEY `id_heroi_idx` (`heroi_id`),
-  CONSTRAINT `id_heroi` FOREIGN KEY (`heroi_id`) REFERENCES `heroi` (`heroi_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+  CONSTRAINT `heroi_id` FOREIGN KEY (`heroi_id`) REFERENCES `heroi` (`heroi_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -174,6 +176,7 @@ CREATE TABLE `tornozeleira` (
 
 LOCK TABLES `tornozeleira` WRITE;
 /*!40000 ALTER TABLE `tornozeleira` DISABLE KEYS */;
+INSERT INTO `tornozeleira` VALUES (1,6,'Capitão','Inativa','2024-12-04 16:20:57',NULL),(2,2,'Tony','Inativa','2024-12-04 16:32:33',NULL);
 /*!40000 ALTER TABLE `tornozeleira` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!50003 SET @saved_cs_client      = @@character_set_client */ ;
@@ -213,4 +216,4 @@ DELIMITER ;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2024-12-04 13:53:28
+-- Dump completed on 2024-12-04 16:41:33

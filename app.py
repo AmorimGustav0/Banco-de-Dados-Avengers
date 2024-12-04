@@ -4,7 +4,7 @@ from model.database import Database
 
 def main():
     
-   Interface()
+    Interface()
     
         
 if __name__ == '__main__':
