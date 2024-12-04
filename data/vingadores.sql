@@ -53,12 +53,13 @@ DROP TABLE IF EXISTS `convocacao`;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `convocacao` (
   `numero_registro` int NOT NULL AUTO_INCREMENT,
+  `nome_heroi` varchar(45) NOT NULL,
   `motivo` varchar(250) NOT NULL,
   `data_convocacao` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `data_comparecimento` date DEFAULT NULL,
   `status` enum('Pendente','Compareceu','Ausente') NOT NULL,
   PRIMARY KEY (`numero_registro`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -67,6 +68,7 @@ CREATE TABLE `convocacao` (
 
 LOCK TABLES `convocacao` WRITE;
 /*!40000 ALTER TABLE `convocacao` DISABLE KEYS */;
+INSERT INTO `convocacao` VALUES (1,'Homem Aranha','Duende Verde','2024-12-04 10:52:56',NULL,'Pendente'),(2,'Homem de Ferro','Ultron','2024-12-04 11:06:25',NULL,'Pendente');
 /*!40000 ALTER TABLE `convocacao` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!50003 SET @saved_cs_client      = @@character_set_client */ ;
@@ -108,7 +110,7 @@ CREATE TABLE `heroi` (
   `fraquezas` varchar(45) DEFAULT NULL,
   `nivel_forca` varchar(45) DEFAULT NULL,
   PRIMARY KEY (`heroi_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -117,7 +119,7 @@ CREATE TABLE `heroi` (
 
 LOCK TABLES `heroi` WRITE;
 /*!40000 ALTER TABLE `heroi` DISABLE KEYS */;
-INSERT INTO `heroi` VALUES (1,'Homem Aranha','Peter Parker','Humano','Teias,  Sentido Aranha,  Escalar','Sentido Aranha','MJ,  Tia May','100');
+INSERT INTO `heroi` VALUES (2,'Homem de Ferro','Tony Stark','Humano','Inteligência, Tecnologia','Armadura','Arrogância','100'),(3,'Thor','Thor','Deus','Força, Relâmpagos, Mjolnir','Rompe-tormentas','Orgulho, Fortnite','1000'),(4,'Homem Aranha','Peter Parker','Humano','Teias,  Escalar,  Agilidade','Sentido Aranha','Tia may,  MJ,  Dinheiro','100'),(5,'Hulk','Bruce Banner','Humano','super força','Força','Escadas','1000'),(6,'Capitão America','Steve Rogers','Humano','Super Força','Habilidades Super Humanas','Amor','80');
 /*!40000 ALTER TABLE `heroi` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -155,13 +157,14 @@ DROP TABLE IF EXISTS `tornozeleira`;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `tornozeleira` (
   `id_tornozeleira` int NOT NULL AUTO_INCREMENT,
+  `heroi_id` int NOT NULL,
+  `nome_heroi` varchar(45) DEFAULT NULL,
   `status` enum('Ativa','Inativa') NOT NULL,
   `data_ativacao` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `data_desativacao` date DEFAULT NULL,
-  `id_chipgps` int NOT NULL,
   PRIMARY KEY (`id_tornozeleira`),
-  KEY `id_chipgps_idx` (`id_chipgps`),
-  CONSTRAINT `id_chipgps` FOREIGN KEY (`id_chipgps`) REFERENCES `chip-gps` (`id_chipgps`)
+  KEY `id_heroi_idx` (`heroi_id`),
+  CONSTRAINT `id_heroi` FOREIGN KEY (`heroi_id`) REFERENCES `heroi` (`heroi_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -210,4 +213,4 @@ DELIMITER ;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2024-11-29 10:31:19
+-- Dump completed on 2024-12-04 13:53:28

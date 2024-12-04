@@ -100,7 +100,7 @@ class Interface:
 
     def convocar_vingador(self):
 
-        nome_heroi = (input("Nome do herói: "))
+        nome_heroi = input("Nome do herói: ")
         for vingador in Vingador.lista_vingadores:
             if nome_heroi in vingador.nome_heroi or nome_heroi in vingador.nome_real:
                 try:
@@ -134,28 +134,24 @@ class Interface:
         print(f"Vingador(a) '{nome_heroi}' não encontrado.")
         self.aguardar_enter()
 
-    
-
 
     def aplicar_tornozeleira(self):
 
-        nome_heroi = (input("Nome do herói: "))
+        nome_heroi = input("Nome do herói: ")
         for vingador in Vingador.lista_vingadores:
             if nome_heroi in vingador.nome_heroi or nome_heroi in vingador.nome_real:
                 try:
-                   
-
-                    
-                    status = capwords(input("status (Inativa, Ativa): "))
+                    status = input("status (Inativa, Ativa): ")
                     opcoes_validas = ["Ativa", "Inativa"]
                      
                     if status not in opcoes_validas:
-                        print(f'Opção "{status}" inválida. Opções válidas {', '.join(opcoes_validas)}.\n faça a convocação novamente')
+                        print(f'Opção "{status}" inválida. Opções válidas {', '.join(opcoes_validas)}.\n faça a seleção novamente')
                         self.aguardar_enter()
                         return
-                    db = Database()
-                    db.connect()
                         
+                    db = Database
+                    db.connect
+
                     query = "INSERT INTO tornozeleira (nome_heroi, status) VALUES (%s,%s)"
                     values = (nome_heroi, status)
                     db.execute_query(query, values)
@@ -169,11 +165,9 @@ class Interface:
                 self.aguardar_enter()
                 return
                     
-            print(f'Vingador(a) "{nome_heroi}" não encontrado')
-            self.aguardar_enter()
+        print(f'Vingador(a) "{nome_heroi}" não encontrado')
+        self.aguardar_enter()
                 
-            
-        print(f"Vingador(a) '{nome_heroi}' não encontrado.")
 
     def aplicar_chip_gps(self):
         nome_heroi = capwords(input("Nome do herói: "))

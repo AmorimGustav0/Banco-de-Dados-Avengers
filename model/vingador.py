@@ -3,10 +3,11 @@ from model.database import Database
 
 class Vingador:
     
-    CATEGORIAS_PERMITIDAS = ['Humano', 'Meta-humano', 'Androide', 'Deidade', 'Alienígena']
+    CATEGORIAS_PERMITIDAS = ['Humano', 'Meta-humano', 'Androide', 'Deus', 'Alienígena']
     lista_vingadores = []
 
-    def __init__(self, nome_heroi, nome_real, categoria, poderes, poder_principal, fraquezas, nivel_forca, convocado=False, tornozeleira=False, chip_gps=False):
+    def __init__(self, heroi_id, nome_heroi, nome_real, categoria, poderes, poder_principal, fraquezas, nivel_forca, convocado=False, tornozeleira=False, chip_gps=False):
+        self.heroi_id = heroi_id
         self.nome_heroi = nome_heroi
         self.nome_real = nome_real
         self.categoria = categoria.capitalize()
@@ -115,17 +116,17 @@ class Vingador:
     def listar_poderes(self):
         return self.poderes
     
-    @staticmethod
+    
     def carregar_herois():
         try:
             db = Database()
             db.connect()
  
-            query = 'SELECT nome_heroi, nome_real, categoria, poderes, poder_principal, fraquezas, nivel_forca FROM HEROI'
+            query = 'SELECT * FROM heroi'
             herois = db.select(query)
             for heroi in herois:
-                Vingador (*heroi)
+                Vingador(*heroi)
         except Exception as e:
-            print (f'Erro: {e}')
+            print(f'Erro: {e}')
         finally:
             db.disconnect()
