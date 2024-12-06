@@ -110,7 +110,7 @@ class Vingador:
         self.convocado = True
         return f'{self.nome_heroi} convocado!'
 
-    def prender(self):
+    def mandado_prisao(self):
         return f'{self.nome_heroi} teve o mandado de prisão emitido!'
 
     def listar_poderes(self):
