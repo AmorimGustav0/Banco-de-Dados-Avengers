@@ -1,4 +1,3 @@
-from os import system
 from model.database import Database
 
 class Vingador:
